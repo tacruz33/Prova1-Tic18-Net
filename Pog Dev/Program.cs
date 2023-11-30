@@ -15,6 +15,25 @@ class Program
         escritorio.AdicionarAdvogado(advogado2);
 
         Cliente cliente1 = new Cliente("Luciano Nascimento", new DateTime(1972, 3, 15), "98765432101", "Casado", "Engenheiro");
+        Cliente cliente2 = new Cliente("Gustavo Pereira", new DateTime(1989, 4, 13), "12345678902", "Solteiro", "Advogado"…
+teste
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Escritorio escritorio = new Escritorio("Escritório de Advocacia XYZ");
+
+        Advogado advogado1 = new Advogado("Tales Araujo", new DateTime(1996, 2, 4), "12345678901", "CNA-123");
+        Advogado advogado2 = new Advogado("Danilo Pereira", new DateTime(1983, 5, 16), "98765432109", "CNA-456");
+
+        escritorio.AdicionarAdvogado(advogado1);
+        escritorio.AdicionarAdvogado(advogado2);
+
+        Cliente cliente1 = new Cliente("Luciano Nascimento", new DateTime(1972, 3, 15), "98765432101", "Casado", "Engenheiro");
         Cliente cliente2 = new Cliente("Gustavo Pereira", new DateTime(1989, 4, 13), "12345678902", "Solteiro", "Advogado");
 
         escritorio.AdicionarCliente(cliente1);
@@ -192,4 +211,58 @@ class Escritorio
         List<Pessoa> aniversariantes = new List<Pessoa>();
 
         aniversariantes.AddRange(Advogados.Where(a => a.DataNascimento.Month == mes));
-      
+        aniversariantes.AddRange(Clientes.Where(c => c.DataNascimento.Month == mes));
+
+        return aniversariantes;
+    }
+}
+
+class Pessoa
+{
+    public string Nome { get; private set; }
+    public DateTime DataNascimento { get; private set; }
+
+    public Pessoa(string nome, DateTime dataNascimento)
+    {
+        Nome = nome;
+        DataNascimento = dataNascimento;
+    }
+}
+
+class Advogado : Pessoa
+{
+    public string CPF { get; private set; }
+    public string CNA { get; private set; }
+
+    public Advogado(string nome, DateTime dataNascimento, string cpf, string cna)
+        : base(nome, dataNascimento)
+    {
+        CPF = ValidarCPF(cpf);
+        CNA = cna;
+    }
+
+    private string ValidarCPF(string cpf)
+    {
+        return cpf;
+    }
+}
+
+class Cliente : Pessoa
+{
+    public string CPF { get; private set; }
+    public string EstadoCivil { get; private set; }
+    public string Profissao { get; private set; }
+
+    public Cliente(string nome, DateTime dataNascimento, string cpf, string estadoCivil, string profissao)
+        : base(nome, dataNascimento)
+    {
+        CPF = ValidarCPF(cpf);
+        EstadoCivil = estadoCivil;
+        Profissao = profissao;
+    }
+
+    private string ValidarCPF(string cpf)
+    {
+        return cpf;
+    }
+}
