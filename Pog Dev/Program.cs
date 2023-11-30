@@ -58,6 +58,22 @@ class Program
         string estadoCivilUsuario = Console.ReadLine();
         List<Cliente> clientesComEstadoCivil = escritorio.ObterClientesPorEstadoCivil(estadoCivilUsuario);
         ExibirClientes(clientesComEstadoCivil);
+
+        Console.WriteLine("Clientes em ordem alfabética:");
+        List<Cliente> clientesEmOrdemAlfabetica = escritorio.ObterClientesEmOrdemAlfabetica();
+        ExibirClientes(clientesEmOrdemAlfabetica);
+
+        Console.WriteLine("Clientes cuja profissão contenha texto informado pelo usuário:");
+        Console.Write("Informe o texto desejado na profissão: ");
+        string textoProfissaoUsuario = Console.ReadLine();
+        List<Cliente> clientesComProfissaoContendoTexto = escritorio.ObterClientesComProfissaoContendoTexto(textoProfissaoUsuario);
+        ExibirClientes(clientesComProfissaoContendoTexto);
+
+        Console.WriteLine("Advogados e Clientes aniversariantes do mês informado:");
+        Console.Write("Informe o mês desejado (1 a 12): ");
+        int mesAniversario = int.Parse(Console.ReadLine());
+        List<Pessoa> aniversariantesDoMes = escritorio.ObterAniversariantesDoMes(mesAniversario);
+        ExibirAniversariantes(aniversariantesDoMes);
     }
 
     static void ExibirAdvogados(List<Advogado> advogados)
@@ -81,6 +97,16 @@ class Program
             Console.WriteLine($"CPF: {cliente.CPF}");
             Console.WriteLine($"Estado Civil: {cliente.EstadoCivil}");
             Console.WriteLine($"Profissão: {cliente.Profissao}");
+            Console.WriteLine("\n");
+        }
+    }
+
+    static void ExibirAniversariantes(List<Pessoa> aniversariantes)
+    {
+        foreach (Pessoa pessoa in aniversariantes)
+        {
+            Console.WriteLine($"Nome: {pessoa.Nome}");
+            Console.WriteLine($"Data de Nascimento: {pessoa.DataNascimento.ToShortDateString()}");
             Console.WriteLine("\n");
         }
     }
@@ -149,17 +175,4 @@ class Escritorio
         return Clientes.Where(c => (dataAtual - c.DataNascimento).Days / 365 >= idadeMinima && (dataAtual - c.DataNascimento).Days / 365 <= idadeMaxima).ToList();
     }
 
-    public List<Cliente> ObterClientesPorEstadoCivil(string estadoCivil)
-    {
-        return Clientes.Where(c => c.EstadoCivil.ToLower() == estadoCivil.ToLower()).ToList();
-    }
-}
-
-class Advogado
-{
-    public string Nome { get; private set; }
-    public DateTime DataNascimento { get; private set; }
-    public string CPF { get; private set; }
-    public string CNA { get; private set; }
-
-  
+   
