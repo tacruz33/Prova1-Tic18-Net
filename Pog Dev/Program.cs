@@ -114,3 +114,6 @@ class Escritorio
     public int ObterNumeroAdvogados()
     {
         return Advogados.Count;
+    }
+
+    Gerar relatorios 
