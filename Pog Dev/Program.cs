@@ -15,25 +15,6 @@ class Program
         escritorio.AdicionarAdvogado(advogado2);
 
         Cliente cliente1 = new Cliente("Luciano Nascimento", new DateTime(1972, 3, 15), "98765432101", "Casado", "Engenheiro");
-        Cliente cliente2 = new Cliente("Gustavo Pereira", new DateTime(1989, 4, 13), "12345678902", "Solteiro", "Advogado"…
-teste
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-class Program
-{
-    static void Main()
-    {
-        Escritorio escritorio = new Escritorio("Escritório de Advocacia XYZ");
-
-        Advogado advogado1 = new Advogado("Tales Araujo", new DateTime(1996, 2, 4), "12345678901", "CNA-123");
-        Advogado advogado2 = new Advogado("Danilo Pereira", new DateTime(1983, 5, 16), "98765432109", "CNA-456");
-
-        escritorio.AdicionarAdvogado(advogado1);
-        escritorio.AdicionarAdvogado(advogado2);
-
-        Cliente cliente1 = new Cliente("Luciano Nascimento", new DateTime(1972, 3, 15), "98765432101", "Casado", "Engenheiro");
         Cliente cliente2 = new Cliente("Gustavo Pereira", new DateTime(1989, 4, 13), "12345678902", "Solteiro", "Advogado");
 
         escritorio.AdicionarCliente(cliente1);
