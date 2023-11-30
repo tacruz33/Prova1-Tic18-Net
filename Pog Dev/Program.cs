@@ -48,5 +48,3 @@ public class Cliente
         Console.WriteLine($"Estado Civil: {cliente.EstadoCivil}");
         Console.WriteLine($"Profissão: {cliente.Profissao}");
     }
-
-Teste
