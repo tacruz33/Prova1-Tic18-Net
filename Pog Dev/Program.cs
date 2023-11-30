@@ -8,19 +8,18 @@ class Program
     {
         Escritorio escritorio = new Escritorio("Escritório de Advocacia XYZ");
 
-        Advogado advogado1 = new Advogado("Fulano de Tal", new DateTime(1980, 1, 1), "12345678901", "CNA-123");
-        Advogado advogado2 = new Advogado("Ciclano da Silva", new DateTime(1990, 5, 15), "98765432109", "CNA-456");
+        Advogado advogado1 = new Advogado("Tales Araujo", new DateTime(1996, 2, 4), "12345678901", "CNA-123");
+        Advogado advogado2 = new Advogado("Danilo Pereira", new DateTime(1983, 5, 16), "98765432109", "CNA-456");
 
         escritorio.AdicionarAdvogado(advogado1);
         escritorio.AdicionarAdvogado(advogado2);
 
-        Cliente cliente1 = new Cliente("Cliente 1", new DateTime(1985, 3, 10), "98765432101", "Casado", "Engenheiro");
-        Cliente cliente2 = new Cliente("Cliente 2", new DateTime(1992, 7, 20), "12345678902", "Solteiro", "Advogado");
+        Cliente cliente1 = new Cliente("Luciano Nascimento", new DateTime(1972, 3, 15), "98765432101", "Casado", "Engenheiro");
+        Cliente cliente2 = new Cliente("Gustavo Pereira", new DateTime(1989, 4, 13), "12345678902", "Solteiro", "Advogado");
 
         escritorio.AdicionarCliente(cliente1);
         escritorio.AdicionarCliente(cliente2);
 
-        // Exibindo informações
         Console.WriteLine($"Nome do Escritório: {escritorio.Nome}");
         Console.WriteLine("\nAdvogados:");
         foreach (Advogado advogado in escritorio.Advogados)
@@ -43,7 +42,6 @@ class Program
             Console.WriteLine("\n");
         }
 
-        // Gerando relatórios
         Console.WriteLine("Relatórios:");
         Console.WriteLine("Advogados com idade entre 30 e 40 anos:");
         List<Advogado> advogadosIdade30a40 = escritorio.ObterAdvogadosComIdadeEntre(30, 40);
@@ -127,7 +125,6 @@ class Escritorio
 
     public void AdicionarAdvogado(Advogado advogado)
     {
-        // Validar CPF e CNA únicos antes de adicionar
         if (Advogados.Any(a => a.CPF == advogado.CPF) || Advogados.Any(a => a.CNA == advogado.CNA))
         {
             Console.WriteLine("Advogado com CPF ou CNA duplicado. Não adicionado.");
@@ -141,7 +138,6 @@ class Escritorio
 
     public void AdicionarCliente(Cliente cliente)
     {
-        // Validar CPF único antes de adicionar
         if (Clientes.Any(c => c.CPF == cliente.CPF))
         {
             Console.WriteLine("Cliente com CPF duplicado. Não adicionado.");
@@ -175,4 +171,25 @@ class Escritorio
         return Clientes.Where(c => (dataAtual - c.DataNascimento).Days / 365 >= idadeMinima && (dataAtual - c.DataNascimento).Days / 365 <= idadeMaxima).ToList();
     }
 
-   
+    public List<Cliente> ObterClientesPorEstadoCivil(string estadoCivil)
+    {
+        return Clientes.Where(c => c.EstadoCivil.ToLower() == estadoCivil.ToLower()).ToList();
+    }
+
+    public List<Cliente> ObterClientesEmOrdemAlfabetica()
+    {
+        return Clientes.OrderBy(c => c.Nome).ToList();
+    }
+
+    public List<Cliente> ObterClientesComProfissaoContendoTexto(string textoProfissao)
+    {
+        return Clientes.Where(c => c.Profissao.ToLower().Contains(textoProfissao.ToLower())).ToList();
+    }
+
+    public List<Pessoa> ObterAniversariantesDoMes(int mes)
+    {
+        DateTime dataAtual = DateTime.Now;
+        List<Pessoa> aniversariantes = new List<Pessoa>();
+
+        aniversariantes.AddRange(Advogados.Where(a => a.DataNascimento.Month == mes));
+      
