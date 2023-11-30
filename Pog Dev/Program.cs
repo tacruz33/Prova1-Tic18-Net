@@ -7,19 +7,40 @@ class Program
     {
         Escritorio escritorio = new Escritorio("Escritório de Advocacia XYZ");
 
-        Advogado advogado1 = new Advogado("Tales", new DateTime(1976, 2, 1), "12345678901", "CNA-123");
-        Advogado advogado2 = new Advogado("Danilo", new DateTime(1976, 3, 16), "98765432109", "CNA-456");
+        Advogado advogado1 = new Advogado("Fulano de Tal", new DateTime(1980, 1, 1), "12345678901", "CNA-123");
+        Advogado advogado2 = new Advogado("Ciclano da Silva", new DateTime(1990, 5, 15), "98765432109", "CNA-456");
 
         escritorio.AdicionarAdvogado(advogado1);
         escritorio.AdicionarAdvogado(advogado2);
 
-        Cliente cliente1 = new Cliente("Cliente 1", new DateTime(1985, 3, 10), "98765432101", "Casado", "Médico");
-        Cliente cliente2 = new Cliente("Cliente 2", new DateTime(1992, 7, 20), "12345678902", "Solteiro", "Fisioteraupeta");
+        Cliente cliente1 = new Cliente("Cliente 1", new DateTime(1985, 3, 10), "98765432101", "Casado", "Engenheiro");
+        Cliente cliente2 = new Cliente("Cliente 2", new DateTime(1992, 7, 20), "12345678902", "Solteiro", "Advogado");
 
+        escritorio.Adiciona…
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Escritorio escritorio = new Escritorio("Escritório de Advocacia XYZ");
+
+        Advogado advogado1 = new Advogado("Fulano de Tal", new DateTime(1980, 1, 1), "12345678901", "CNA-123");
+        Advogado advogado2 = new Advogado("Ciclano da Silva", new DateTime(1990, 5, 15), "98765432109", "CNA-456");
+
+   
+        escritorio.AdicionarAdvogado(advogado1);
+        escritorio.AdicionarAdvogado(advogado2);
+
+        Cliente cliente1 = new Cliente("Cliente 1", new DateTime(1985, 3, 10), "98765432101", "Casado", "Engenheiro");
+        Cliente cliente2 = new Cliente("Cliente 2", new DateTime(1992, 7, 20), "12345678902", "Solteiro", "Advogado");
+
+        
         escritorio.AdicionarCliente(cliente1);
         escritorio.AdicionarCliente(cliente2);
 
-        
+       
         Console.WriteLine($"Nome do Escritório: {escritorio.Nome}");
         Console.WriteLine("\nAdvogados:");
         foreach (Advogado advogado in escritorio.Advogados)
@@ -64,7 +85,32 @@ class Escritorio
 
     public void AdicionarAdvogado(Advogado advogado)
     {
-        Advogados.Add(advogado);
+       
+        if (Advogados.Any(a => a.CPF == advogado.CPF) || Advogados.Any(a => a.CNA == advogado.CNA))
+        {
+            Console.WriteLine("Advogado com CPF ou CNA duplicado. Não adicionado.");
+        }
+        else
+        {
+            Advogados.Add(advogado);
+            Console.WriteLine("Advogado adicionado com sucesso.");
+        }
     }
 
-   
+    public void AdicionarCliente(Cliente cliente)
+    {
+
+        if (Clientes.Any(c => c.CPF == cliente.CPF))
+        {
+            Console.WriteLine("Cliente com CPF duplicado. Não adicionado.");
+        }
+        else
+        {
+            Clientes.Add(cliente);
+            Console.WriteLine("Cliente adicionado com sucesso.");
+        }
+    }
+
+    public int ObterNumeroAdvogados()
+    {
+        return Advogados.Count;
